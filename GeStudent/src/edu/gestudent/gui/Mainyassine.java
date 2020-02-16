@@ -28,7 +28,7 @@ public class Mainyassine extends Application {
                     
                     Scene scene = new Scene(root, 500, 500);
                     
-                    primaryStage.setTitle("Login");
+                    primaryStage.setTitle("GeStudent+");
                     primaryStage.setScene(scene);
                     primaryStage.show();
         } catch (IOException ex) {
