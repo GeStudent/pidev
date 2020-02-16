@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="edu.gestudent.gui.LoginpageController">
+   <children>
+      <TextField fx:id="username" layoutX="226.0" layoutY="153.0" />
+      <TextField fx:id="password" layoutX="226.0" layoutY="194.0" />
+      <Label layoutX="128.0" layoutY="157.0" text="username" />
+      <Label layoutX="129.0" layoutY="198.0" text="password" />
+      <Button layoutX="226.0" layoutY="242.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="149.0" text="Login" />
+   </children>
+</AnchorPane>
