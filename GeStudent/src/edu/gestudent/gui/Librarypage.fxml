@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.LibrarypageController">
+   <children>
+      <TabPane layoutX="-79.0" layoutY="-45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Home">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="713.0">
+                     <children>
+                        <HBox layoutX="32.0" layoutY="20.0" spacing="15.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <VBox prefHeight="256.0" prefWidth="72.0" spacing="30.0">
+                                       <children>
+                                          <Label text="Name" />
+                                          <Label text="Image" />
+                                          <Label text="Author" />
+                                          <Label text="Url" />
+                                          <Label text="Categorie" />
+                                          <Label text="Quantity" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="281.0" prefWidth="178.0" spacing="20.0">
+                                       <children>
+                                          <TextField fx:id="txtname" />
+                                          <TextField fx:id="txtimage" />
+                                          <TextField fx:id="txtauthor" />
+                                          <TextField fx:id="txturl" />
+                                          <TextField fx:id="categorie" />
+                                          <TextField fx:id="txtquantity" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Button layoutX="317.0" layoutY="371.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="102.0" text="Delete" />
+                        <Button layoutX="173.0" layoutY="371.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="102.0" text="Edit" />
+                        <Button fx:id="ReturnButton" layoutX="487.0" layoutY="371.0" mnemonicParsing="false" onAction="#ReturnAction" prefHeight="51.0" prefWidth="139.0" text="Return" />
+                        <Button layoutX="28.0" layoutY="371.0" mnemonicParsing="false" onAction="#addBook" prefHeight="35.0" prefWidth="102.0" text="Add" />
+                        <TableView fx:id="librarytv" layoutX="282.0" layoutY="14.0" prefHeight="269.0" prefWidth="483.0">
+                          <columns>
+                            <TableColumn fx:id="name" prefWidth="90.0" text="Name" />
+                              <TableColumn fx:id="image" prefWidth="78.0" text="Image" />
+                              <TableColumn fx:id="author" prefWidth="67.0" text="Author" />
+                              <TableColumn fx:id="url" prefWidth="55.0" text="Url" />
+                              <TableColumn fx:id="categiries" prefWidth="98.0" text="Categories" />
+                              <TableColumn fx:id="quantity" prefWidth="94.0" text="Quantity" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
