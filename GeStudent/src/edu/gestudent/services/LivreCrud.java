@@ -70,7 +70,7 @@ public class LivreCrud {
     public List<Livre> afficherlivre() {
         ArrayList<Livre> liv = new ArrayList<>();
         try {
-            String requete3 = ("SELECT *FROM livres"+ tri + ordre) ;
+            String requete3 = ("SELECT * FROM livres"+ tri + ordre) ;
             PreparedStatement pst2 = cn2.prepareStatement(requete3);
             ResultSet rs = pst2.executeQuery();
             while(rs.next()){
@@ -88,7 +88,7 @@ public class LivreCrud {
         }
         return liv;
     }
-    public boolean supprimerlivre(Livre l ) throws SQLException {
+    public boolean supprimerlivre(Livre l )  {
 
         String reqeute = "delete from livres  where (name = ?) ;";
         try {
@@ -107,7 +107,7 @@ public class LivreCrud {
 //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean Update(String name,String image,String url,String categorie,int quantite) throws SQLException {
+    public boolean Update(String name,String image,String url,String categorie,int quantite)   {
 
         String reqeute = "UPDATE livres SET  image= ? , url= ? , categorie= ? , quantite=?  where name = ? ;";
         try {
