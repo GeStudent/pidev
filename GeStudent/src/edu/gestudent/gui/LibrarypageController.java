@@ -115,8 +115,11 @@ public class LibrarypageController implements Initializable {
         succAddBookAlert.setTitle("Add book");
         succAddBookAlert.setHeaderText("Results:");
         succAddBookAlert.setContentText("Book added successfully!");
+                        succAddBookAlert.showAndWait();
+
         data.clear();
         data.addAll(lcr.afficherlivre());
+        
 
     }
 
