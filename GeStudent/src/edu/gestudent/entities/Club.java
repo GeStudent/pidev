@@ -35,10 +35,17 @@ public class Club {
         this.id_president = id_president;
     }
 
-   /* public Club(int id_club, String nom, String date, String email, int numero, String description, String etat, int id_president) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
+    public Club(String nom, String date, String email, int numero, String description, int etat, int id_president) {
+        this.nom = nom;
+        this.date = date;
+        this.email = email;
+        this.numero = numero;
+        this.description = description;
+        this.etat = etat;
+        this.id_president = id_president;
+    }
 
+  
   
 
     public int getId_club() {

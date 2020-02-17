@@ -16,12 +16,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author user
  */
-public class ServiceClub implements IService<Club> {
+public class ServiceClub {
 
     private Connection con;
     private Statement ste;
@@ -31,22 +33,25 @@ public class ServiceClub implements IService<Club> {
 
     }
 
-    @Override
-    public void ajouter(Club c) throws SQLException {
-        ste = con.createStatement();
-        String requeteInsert = "INSERT INTO `club` (`id_club`, `nom`, `date`, `email`,`numero`,`description`,`etat`,`id_president`) VALUES (NULL, '" + c.getNom() + "', '" + c.getDate() + "', '" + c.getEmail() + "','" + c.getNumero() + "','" + c.getDescription() + "','" + c.getEtat() + "','" + c.getId_president() + "');";
-        ste.executeUpdate(requeteInsert);
+    public void ajouterClub(Club c) {
+        
+        try {
+
+            PreparedStatement pre = con.prepareStatement("INSERT INTO `club` (nom,date,email,numero,description,etat,id_president) values(?,?,?,?,?,?,?) ");
+            pre.setString(1, c.getNom());
+            pre.setString(2, c.getDate());
+            pre.setString(3, c.getEmail());
+            pre.setInt(4, c.getNumero());
+            pre.setString(5, c.getDescription());
+            pre.setInt(6, c.getEtat());
+            pre.setInt(7, c.getId_president());
+            pre.executeUpdate();
+            System.out.println("Club ajoute");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    @Override
-    public boolean delete(Club c) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean update(Club c) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public boolean supprimer(Club c) throws SQLException {
 
@@ -94,7 +99,7 @@ public class ServiceClub implements IService<Club> {
      *
      * @return @throws SQLException
      */
-    @Override
+    
     public List<Club> readAll() throws SQLException {
         List<Club> arr = new ArrayList<>();
         ste = con.createStatement();
@@ -170,6 +175,4 @@ public class ServiceClub implements IService<Club> {
         String tri = " ORDER BY date ";
     }
 
-
-
-    }
+}

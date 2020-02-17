@@ -1,11 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.ClubpageController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.ClubpageController">
+   <children>
+      <TabPane layoutX="-2.0" prefHeight="400.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="372.0" prefWidth="91.0" style="-fx-background-color: pink;" />
+                        <TextField fx:id="txtid_club" layoutX="91.0" layoutY="55.0" prefHeight="25.0" prefWidth="90.0" promptText="Id" />
+                        <TextField fx:id="txtid_president" layoutX="180.0" layoutY="223.0" prefHeight="25.0" prefWidth="90.0" promptText="President ID" />
+                        <TextField fx:id="txtdescription" layoutX="180.0" layoutY="113.0" prefHeight="25.0" prefWidth="90.0" promptText="Description" />
+                        <TextField fx:id="txtnumero" layoutX="181.0" layoutY="55.0" prefHeight="25.0" prefWidth="90.0" promptText="Numero" />
+                        <TextField fx:id="txtemail" layoutX="90.0" layoutY="223.0" prefHeight="25.0" prefWidth="90.0" promptText="Email" />
+                        <Label fx:id="club" layoutX="130.0" layoutY="18.0" prefHeight="23.0" prefWidth="66.0" text="Club" textFill="#ffa1e4">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="AddButton" layoutX="96.0" layoutY="315.0" mnemonicParsing="false" onAction="#AddClub" prefHeight="25.0" prefWidth="55.0" text="Add" />
+                        <Button fx:id="EditButton" layoutX="170.0" layoutY="315.0" mnemonicParsing="false" onAction="#EditClub" prefHeight="25.0" prefWidth="55.0" text="Edit" />
+                        <Button fx:id="DeleteButton" layoutX="245.0" layoutY="315.0" mnemonicParsing="false" onAction="#DeleteClub" prefHeight="25.0" prefWidth="55.0" text="Delete" />
+                        <Button fx:id="SearchButton" layoutX="319.0" layoutY="315.0" mnemonicParsing="false" onAction="#SearchClub" prefHeight="25.0" prefWidth="55.0" text="Search" />
+                        <Button fx:id="EmailButton" layoutX="395.0" layoutY="315.0" mnemonicParsing="false" onAction="#EmailClub" text="Email" />
+                        <TextField fx:id="txtnom" layoutX="90.0" layoutY="113.0" prefHeight="25.0" prefWidth="90.0" promptText="Name" />
+                        <Button fx:id="ReturnButton" layoutX="484.0" layoutY="302.0" mnemonicParsing="false" onAction="#ReturnAction" prefHeight="50.0" prefWidth="131.0" text="Return" />
+                        <TableView fx:id="clubtv" layoutX="290.0" layoutY="18.0" prefHeight="279.0" prefWidth="490.0">
+                          <columns>
+                            <TableColumn fx:id="id_club" prefWidth="57.0" text="Id" />
+                              <TableColumn fx:id="nom" prefWidth="57.0" text="Name" />
+                              <TableColumn fx:id="date" prefWidth="57.0" text="Date" />
+                              <TableColumn fx:id="email" prefWidth="57.0" text="Email" />
+                              <TableColumn fx:id="numero" prefWidth="57.0" text="Numero" />
+                              <TableColumn fx:id="description" prefWidth="57.0" text="Description" />
+                              <TableColumn fx:id="etat" prefWidth="57.0" text="Etat" />
+                              <TableColumn fx:id="id_president" prefWidth="57.0" text="President ID" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="txtetat" layoutX="228.0" layoutY="174.0" prefHeight="25.0" prefWidth="58.0" promptText="etat" />
+                        <DatePicker fx:id="datetxt" layoutX="96.0" layoutY="173.0" prefHeight="25.0" prefWidth="115.0" />
+                     </children>
+                  </Pane>
+               </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </AnchorPane>
