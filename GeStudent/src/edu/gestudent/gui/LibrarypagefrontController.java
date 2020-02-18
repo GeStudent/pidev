@@ -5,10 +5,14 @@
  */
 package edu.gestudent.gui;
 
+import edu.gestudent.entities.Emprunt;
 import edu.gestudent.entities.Livre;
+import edu.gestudent.services.EmpruntCrud;
 import edu.gestudent.services.LivreCrud;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +23,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,9 +39,11 @@ import javafx.util.converter.IntegerStringConverter;
  * @author ASUS
  */
 public class LibrarypagefrontController implements Initializable {
+
     LivreCrud lcr = new LivreCrud();
+    EmpruntCrud ecr = new EmpruntCrud();
     public ObservableList<Livre> data = FXCollections.observableArrayList();
-    
+    public ObservableList<Emprunt> dataemp = FXCollections.observableArrayList();
 
     @FXML
     private DatePicker txtdateE;
@@ -54,16 +62,22 @@ public class LibrarypagefrontController implements Initializable {
     @FXML
     private TableColumn<Livre, Integer> quantity;
     @FXML
-    private TableView<Livre> livreeemprunter;
-        @FXML
+    private TableView<Emprunt> livreeemprunter;
+    @FXML
     private Button ReturnB;
+    @FXML
+    private TableColumn<Emprunt, String> name1;
+    @FXML
+    private TableColumn<Emprunt, String> date;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            data.addAll(lcr.afficherlivre());
+        data.addAll(lcr.afficherlivre());
+        dataemp.addAll(ecr.afficherlivreemprunte(1));
+
         this.author.setCellValueFactory(new PropertyValueFactory<>("author"));
         this.categiries.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -71,7 +85,11 @@ public class LibrarypagefrontController implements Initializable {
         this.image.setCellValueFactory(new PropertyValueFactory<>("image"));
         this.url.setCellValueFactory(new PropertyValueFactory<>("url"));
 
+        this.name1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.date.setCellValueFactory(new PropertyValueFactory<>("date_retour"));
+
         this.librarytv.setItems(data);
+        this.livreeemprunter.setItems(dataemp);
 
         //this for edit
         this.librarytv.setEditable(true);
@@ -80,27 +98,75 @@ public class LibrarypagefrontController implements Initializable {
         this.quantity.setCellFactory(TextFieldTableCell.<Livre, Integer>forTableColumn(new IntegerStringConverter()));
         this.image.setCellFactory(TextFieldTableCell.forTableColumn());
         this.url.setCellFactory(TextFieldTableCell.forTableColumn());
-    }    
+    }
 
     @FXML
     private void emprunterlivre(ActionEvent event) {
+        Livre L = librarytv.getSelectionModel().getSelectedItem();
+
+        Emprunt E = new Emprunt(String.valueOf(txtdateE.getValue()), 1, L.getId_livre());
+
+        Alert succemprunterlivreAlert = new Alert(Alert.AlertType.INFORMATION);
+        succemprunterlivreAlert.setTitle("Add book");
+        succemprunterlivreAlert.setHeaderText("Results:");
+        succemprunterlivreAlert.setContentText("Book added successfully!");
+        succemprunterlivreAlert.showAndWait();
+        ecr.ajouterEmprunt(E);
+
+        dataemp.clear();
+        dataemp.addAll(ecr.afficherlivreemprunte(1));
     }
 
     @FXML
     private void ReturnAction(ActionEvent event) {
-        
-        try {
+
+        /*try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
             Parent root = loader.load();
             HomepageController spc = loader.getController();
             ReturnB.getScene().setRoot(root);
         } catch (IOException ex) {
             Logger.getLogger(LibrarypageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     @FXML
     private void retournerlivre(ActionEvent event) {
+        if (livreeemprunter.getSelectionModel().getSelectedItem() != null) {
+            Alert retournerlivreAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            retournerlivreAlert.setTitle("Delete book");
+            retournerlivreAlert.setHeaderText(null);
+            retournerlivreAlert.setContentText("Do want to return this book ?");
+            Optional<ButtonType> optionDeleteBookAlert = retournerlivreAlert.showAndWait();
+            if (optionDeleteBookAlert.get() == ButtonType.OK) {
+                Emprunt E = livreeemprunter.getSelectionModel().getSelectedItem();
+                ecr.supprimeremprunt(E, E.getId_emprunt());
+                System.out.println(E.getId_emprunt());
+                dataemp.clear();
+                dataemp.addAll(ecr.afficherlivreemprunte(1));
+
+                //Alert Delete Blog :
+                Alert succretournerlivreAlert = new Alert(Alert.AlertType.INFORMATION);
+                succretournerlivreAlert.setTitle("Blog");
+                succretournerlivreAlert.setHeaderText("Results:");
+                succretournerlivreAlert.setContentText("Book is returned!");
+
+                succretournerlivreAlert.showAndWait();
+            } else if (optionDeleteBookAlert.get() == ButtonType.CANCEL) {
+
+            }
+
+        } else {
+
+            //Alert Select BOOK :
+            Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
+            selectBookAlert.setTitle("Select a book");
+            selectBookAlert.setHeaderText(null);
+            selectBookAlert.setContentText("You need to select a book first!");
+            selectBookAlert.showAndWait();
+            //Alert Select Book !
+
+        }
     }
-    
+
 }

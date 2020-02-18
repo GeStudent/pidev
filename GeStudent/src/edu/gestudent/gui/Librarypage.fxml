@@ -11,7 +11,7 @@
    <children>
       <TabPane layoutX="-79.0" layoutY="-45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="748.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Home">
+          <Tab text="Gestion livre">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="475.0" prefWidth="821.0">
                      <children>
@@ -32,10 +32,15 @@
                                     <VBox prefHeight="281.0" prefWidth="178.0" spacing="20.0">
                                        <children>
                                           <TextField fx:id="txtname" />
-                                          <TextField fx:id="txtimage" />
+                                          <HBox>
+                                             <children>
+                                                <TextField fx:id="txtimage" />
+                                                <Button mnemonicParsing="false" onAction="#upload" prefHeight="25.0" prefWidth="87.0" text="upload" />
+                                             </children>
+                                          </HBox>
                                           <TextField fx:id="txtauthor" />
                                           <TextField fx:id="txturl" />
-                                          <TextField fx:id="categorie" />
+                                          <ComboBox fx:id="combocategorie" prefWidth="150.0" promptText="choose.." />
                                           <TextField fx:id="txtquantity" />
                                        </children>
                                     </VBox>
@@ -57,7 +62,7 @@
                         <Button layoutX="173.0" layoutY="371.0" mnemonicParsing="false" onAction="#EditAction" prefHeight="35.0" prefWidth="102.0" text="Edit" />
                         <Button fx:id="ReturnButton" layoutX="487.0" layoutY="371.0" mnemonicParsing="false" onAction="#ReturnAction" prefHeight="51.0" prefWidth="139.0" text="Return" />
                         <Button layoutX="28.0" layoutY="371.0" mnemonicParsing="false" onAction="#addBook" prefHeight="35.0" prefWidth="102.0" text="Add" />
-                        <Button layoutX="481.0" layoutY="301.0" mnemonicParsing="false" onAction="#select" text="select" />
+                        <Button layoutX="480.0" layoutY="315.0" mnemonicParsing="false" onAction="#select" text="select" />
                      </children>
                   </AnchorPane>
             </content>

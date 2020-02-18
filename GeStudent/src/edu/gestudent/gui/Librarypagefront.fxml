@@ -32,7 +32,8 @@
                         <Button layoutX="207.0" layoutY="327.0" mnemonicParsing="false" onAction="#retournerlivre" text="Return the book" />
                         <TableView fx:id="livreeemprunter" layoutX="417.0" layoutY="14.0" prefHeight="200.0" prefWidth="176.0">
                           <columns>
-                            <TableColumn prefWidth="175.0" text="Name" />
+                            <TableColumn fx:id="name1" prefWidth="82.0" text="Name" />
+                              <TableColumn fx:id="date" prefWidth="93.0" text="Date de retour" />
                           </columns>
                         </TableView>
                      </children>

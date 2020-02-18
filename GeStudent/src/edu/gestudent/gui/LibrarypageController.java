@@ -7,6 +7,7 @@ package edu.gestudent.gui;
 
 import edu.gestudent.entities.Livre;
 import edu.gestudent.services.LivreCrud;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -26,12 +27,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -52,7 +55,6 @@ public class LibrarypageController implements Initializable {
     private TextField txtauthor;
     @FXML
     private TextField txturl;
-    @FXML
     private TextField categorie;
     @FXML
     private TextField txtquantity;
@@ -75,6 +77,9 @@ public class LibrarypageController implements Initializable {
     private TableView<Livre> librarytv;
     @FXML
     private TableColumn<Livre, String> categiries;
+    @FXML
+    private ComboBox<String> combocategorie;
+    public ObservableList<String> categorieff = FXCollections.observableArrayList("Comedy", "Drama","Action","History","Thriller","Romantic","Biography");
 
     public int getTxtquantity() {
         return Integer.parseInt(txtquantity.getText());
@@ -85,6 +90,7 @@ public class LibrarypageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        combocategorie.setItems(categorieff);
         data.addAll(lcr.afficherlivre());
         this.author.setCellValueFactory(new PropertyValueFactory<>("author"));
         this.categiries.setCellValueFactory(new PropertyValueFactory<>("categorie"));
@@ -97,7 +103,6 @@ public class LibrarypageController implements Initializable {
 
         //this for edit
         this.librarytv.setEditable(true);
-        this.author.setCellFactory(TextFieldTableCell.forTableColumn());
         this.categiries.setCellFactory(TextFieldTableCell.forTableColumn());
         this.quantity.setCellFactory(TextFieldTableCell.<Livre, Integer>forTableColumn(new IntegerStringConverter()));
         this.image.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -108,7 +113,7 @@ public class LibrarypageController implements Initializable {
 
     @FXML
     private void addBook(ActionEvent event) {
-        Livre l = new Livre(txtname.getText(), txtimage.getText(), txtauthor.getText(), txturl.getText(), categorie.getText(), getTxtquantity());
+        Livre l = new Livre(txtname.getText(), txtimage.getText(), txtauthor.getText(), txturl.getText(), combocategorie.getValue(), getTxtquantity());
         lcr.ajouterLivre(l);
         Alert succAddBookAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddBookAlert.setTitle("Add book");
@@ -150,9 +155,9 @@ public class LibrarypageController implements Initializable {
 
         if (librarytv.getSelectionModel().getSelectedItem() != null) {
             Alert deleteBookAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteBookAlert.setTitle("Delete Partner");
+            deleteBookAlert.setTitle("Delete book");
             deleteBookAlert.setHeaderText(null);
-            deleteBookAlert.setContentText("Are you sure want to delete this book ?");
+            deleteBookAlert.setContentText("Are you sure that you want to delete this book ?");
             Optional<ButtonType> optionDeleteBookAlert = deleteBookAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
                 Livre L = librarytv.getSelectionModel().getSelectedItem();
@@ -177,7 +182,7 @@ public class LibrarypageController implements Initializable {
             Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
             selectBookAlert.setTitle("Select a book");
             selectBookAlert.setHeaderText(null);
-            selectBookAlert.setContentText("You need to select book first!");
+            selectBookAlert.setContentText("You need to select a book first!");
             selectBookAlert.showAndWait();
             //Alert Select Book !
 
@@ -195,7 +200,7 @@ public class LibrarypageController implements Initializable {
             Alert BookAlert = new Alert(Alert.AlertType.INFORMATION);
             BookAlert.setTitle("edit");
             BookAlert.setHeaderText(null);
-            BookAlert.setContentText("book was succfuly edit");
+            BookAlert.setContentText("The book was successfully edit");
             BookAlert.showAndWait();
 
         } else {
@@ -203,7 +208,7 @@ public class LibrarypageController implements Initializable {
             Alert selectBookAlert = new Alert(Alert.AlertType.WARNING);
             selectBookAlert.setTitle("Select a book");
             selectBookAlert.setHeaderText(null);
-            selectBookAlert.setContentText("You need to select book first!");
+            selectBookAlert.setContentText("You need to select a book first!");
             selectBookAlert.showAndWait();
             //Alert Select Book !
         }
@@ -244,4 +249,18 @@ public class LibrarypageController implements Initializable {
         LivreSelected.setQuantite(Integer.parseInt(edittedCell.getNewValue().toString()));
     }
 
-}
+    @FXML
+    private void upload(ActionEvent event) {
+        
+        FileChooser fc = new FileChooser();
+        String imageFile = "";
+        File f = fc.showOpenDialog(null);
+
+        if (f != null) {
+            imageFile = f.getAbsolutePath();
+            txtimage.setText(imageFile);
+        }
+    }
+
+    }
+

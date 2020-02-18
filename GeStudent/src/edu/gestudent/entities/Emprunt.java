@@ -16,6 +16,18 @@ public class Emprunt {
     private String date_retour;
     private int id;
     private int id_livre;
+    private String name;
+
+    public Emprunt(String date_retour,String name) {
+        this.date_retour = date_retour;
+        this.name = name;
+    }
+
+    public Emprunt(String date_retour, int id, int id_livre) {
+        this.date_retour = date_retour;
+        this.id = id;
+        this.id_livre = id_livre;
+    }
 
     public Emprunt(String date_emprunt, String date_retour, int id, int id_livre) {
         this.date_emprunt = date_emprunt;
@@ -65,6 +77,19 @@ public class Emprunt {
 
     public void setId_livre(int id_livre) {
         this.id_livre = id_livre;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Emprunt{" + "date_retour=" + date_retour + ", name=" + name + '}';
     }
     
     
