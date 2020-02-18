@@ -5,7 +5,6 @@
  */
 package edu.gestudent.services;
 
-import edu.gestudent.entities.Student;
 import edu.gestudent.entities.teacher;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

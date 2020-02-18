@@ -49,5 +49,19 @@ public class LoginpageController implements Initializable {
             Logger.getLogger(LoginpageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void Singup(ActionEvent event) {
+          try {
+            FXMLLoader loader =new FXMLLoader(getClass().getResource("Signup.fxml"));
+            Parent root =loader.load();
+            
+            //SignupController spc = loader.getController();
+            username.getScene().setRoot(root);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginpageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }

@@ -12,6 +12,10 @@ package edu.gestudent.entities;
 public class teacher extends user{
     private float Salary;
 
+    public teacher(String lastname, String firstname, String email, String birthDay, int phone, String pays, String adress, String gender) {
+        super(lastname, firstname, email, birthDay, phone, pays, adress, gender);
+    }
+
     public teacher(String lastname, String firstname, String email, String roles, String birthDay, int phone, String pays, String adress, String gender) {
         super(lastname, firstname, email, roles, birthDay, phone, pays, adress, gender);
     }

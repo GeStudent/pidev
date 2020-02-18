@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,12 +10,34 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="edu.gestudent.gui.LoginpageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: fef8e8;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.LoginpageController">
    <children>
-      <TextField fx:id="username" layoutX="226.0" layoutY="153.0" />
-      <TextField fx:id="password" layoutX="226.0" layoutY="194.0" />
-      <Label layoutX="128.0" layoutY="157.0" text="username" />
-      <Label layoutX="129.0" layoutY="198.0" text="password" />
-      <Button layoutX="226.0" layoutY="242.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="149.0" text="Login" />
+      <AnchorPane layoutX="350.0" prefHeight="400.0" prefWidth="353.0" style="-fx-background-color: f77175;">
+         <children>
+            <JFXTextField fx:id="username" focusColor="#5caebc" layoutX="67.0" layoutY="156.0" prefHeight="25.0" prefWidth="214.0" promptText="username" unFocusColor="WHITE" />
+            <JFXPasswordField fx:id="password" focusColor="#5caebc" layoutX="67.0" layoutY="200.0" prefHeight="25.0" prefWidth="214.0" promptText="password" unFocusColor="WHITE" />
+            <JFXButton layoutX="67.0" layoutY="269.0" onAction="#login" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #fad671;" text="Login" />
+            <Label layoutX="136.0" layoutY="80.0" prefHeight="31.0" prefWidth="78.0" text="Sign In">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="170.0" fitWidth="174.0" layoutX="82.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/gestudent.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="59.0" layoutY="331.0" onAction="#Singup" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #fad671;" text="Sgin up">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="32.0" layoutY="259.0" prefHeight="60.0" prefWidth="308.0" text="Sign up as a teacher or student">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

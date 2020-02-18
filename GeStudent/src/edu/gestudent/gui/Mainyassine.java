@@ -26,7 +26,7 @@ public class Mainyassine extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Loginpage.fxml"));
                     
-                    Scene scene = new Scene(root, 500, 500);
+                    Scene scene = new Scene(root, 700, 400);
                     
                     primaryStage.setTitle("GeStudent+");
                     primaryStage.setScene(scene);
