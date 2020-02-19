@@ -53,6 +53,14 @@ public class HomepageController implements Initializable {
 
     @FXML
     private void UsersAction(ActionEvent event) {
+          try {
+            FXMLLoader loader =new FXMLLoader(getClass().getResource("Userspage.fxml"));
+            Parent root =loader.load();
+            UserspageController spc = loader.getController();
+            librarybutton.getScene().setRoot(root);
+        } catch (IOException ex) {
+            Logger.getLogger(HomepageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

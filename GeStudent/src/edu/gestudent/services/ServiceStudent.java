@@ -41,24 +41,38 @@ public class ServiceStudent extends ServicesUsers {
 
 
 
-    public void affcterclass(String idcode, int idclass) {
-        try {
-            PreparedStatement pre = con.prepareStatement("update user set iclass=? where idcode=?;");
-            pre.setInt(1, idclass);
-            pre.setString(2, idcode);
-            pre.executeUpdate();
-            System.out.println("Class affected");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
+  
 
-    public List<Student> readAllStudent() {
+    public List<Student> readAllStudentRegistrated() {
 
         List<Student> lu = new ArrayList<>();
         try {
             ste = con.createStatement();
-            ResultSet rs = ste.executeQuery("select firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='student'");
+            ResultSet rs = ste.executeQuery("select firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='student' and enabled=1 ");
+            while (rs.next()) {
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                String email = rs.getString("email");
+                String birthDay = rs.getString("birthDay");
+                int phone = rs.getInt("phone");
+                String pays = rs.getString("pays");
+                String adress = rs.getString("adress");
+                String gender = rs.getString("gender");
+                Student u = new Student(lastname,firstname,email, birthDay, phone, pays, adress, gender);
+                lu.add(u);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lu;
+    }
+    
+      public List<Student> readAllStudentNotRegistrated() {
+
+        List<Student> lu = new ArrayList<>();
+        try {
+            ste = con.createStatement();
+            ResultSet rs = ste.executeQuery("select firstname,lastname,email,birthDay,phone,pays,adress,gender from user where roles='student' and enabled=0 ");
             while (rs.next()) {
                 String firstname = rs.getString("firstname");
                 String lastname = rs.getString("lastname");

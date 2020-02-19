@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: fef8e8;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.UserspageController">
+   <children>
+      <TabPane layoutX="78.0" layoutY="77.0" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: fef8e8;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Student">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="617.0" style="-fx-background-color: fef8e8;">
+                     <children>
+                        <TableView fx:id="StudentTv" layoutX="7.0" layoutY="36.0" prefHeight="305.0" prefWidth="480.0" style="-fx-background-color: f6bcbc;">
+                          <columns>
+                            <TableColumn fx:id="firstname" prefWidth="71.0" text="First Name" />
+                            <TableColumn fx:id="lastname" prefWidth="66.0" text="LastName" />
+                              <TableColumn fx:id="email" prefWidth="73.0" text="Email" />
+                              <TableColumn fx:id="birthday" prefWidth="73.0" text="BirthDay" />
+                              <TableColumn fx:id="phone" prefWidth="66.0" text="Phone" />
+                              <TableColumn fx:id="pays" prefWidth="66.0" text="pays" />
+                              <TableColumn fx:id="gender" prefWidth="66.0" text="Gender" />
+                          </columns>
+                        </TableView>
+                        <JFXComboBox fx:id="StudentComboBox" layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="134.0" promptText="student" />
+                        <VBox layoutX="494.0" layoutY="28.0" prefHeight="323.0" prefWidth="100.0" style="-fx-background-color: f77175;">
+                           <children>
+                              <JFXButton buttonType="RAISED" onAction="#accpetStudent" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: fef8e8;" text="accpet" />
+                              <JFXButton buttonType="RAISED" onAction="#decline" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: fef8e8;" text="decline" />
+                           </children>
+                        </VBox>
+                        <JFXButton fx:id="clickb" layoutX="164.0" layoutY="13.0" onAction="#clickb" text="Click" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Teacher">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="teacherTv" layoutX="10.0" layoutY="12.0" prefHeight="323.0" prefWidth="606.0">
+                          <columns>
+                            <TableColumn fx:id="firstnameT" prefWidth="75.0" text="First Name" />
+                            <TableColumn fx:id="lastnameT" prefWidth="75.0" text="Last Name" />
+                              <TableColumn fx:id="emailT" prefWidth="75.0" text="Email" />
+                              <TableColumn fx:id="birthdayT" prefWidth="75.0" text="Birth Day" />
+                              <TableColumn fx:id="phoneT" prefWidth="75.0" text="Phone" />
+                              <TableColumn fx:id="paysT" prefWidth="75.0" text="Pays" />
+                              <TableColumn fx:id="genderT" prefWidth="75.0" text="Gender" />
+                              <TableColumn fx:id="SalaryT" prefWidth="75.0" text="Salary" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

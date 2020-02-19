@@ -28,7 +28,6 @@ public class ServicesUsers {
         con = DataBase.getInstance().getConnection();
 
     }
-     
 
     public String getRole(String username) {
         String role = "";
@@ -58,6 +57,21 @@ public class ServicesUsers {
             ex.getMessage();
         }
         return Qrcode;
+    }
+
+    public int QrcodeisUsed(String Qr) {
+        int enabled =0;
+        try {
+            PreparedStatement pre = con.prepareStatement("select enabled from user where idcode=?");
+            pre.setString(1, Qr);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                enabled = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+        return enabled;
     }
 
     String idCode(user u) {
@@ -103,7 +117,7 @@ public class ServicesUsers {
         }
     }
 
-    public void ajouterAccount(String username, String image, String password, String idcode) {
+    public boolean ajouterAccount(String username, String image, String password, String idcode) {
         try {
             PreparedStatement pre = con.prepareStatement("update user set username=?,image=?,password=? , enabled=1 where idcode=?;");
             pre.setString(1, username);
@@ -112,8 +126,10 @@ public class ServicesUsers {
             pre.setString(4, idcode);
             pre.executeUpdate();
             System.out.println("Account ADDED");
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return false;
         }
     }
 
@@ -218,7 +234,7 @@ public class ServicesUsers {
                 String pays = rs.getString("pays");
                 String adress = rs.getString("adress");
                 String gender = rs.getString("gender");
-                 u = new user(firstname, lastname, email, roles, birthDay, phone, pays, adress, gender);
+                u = new user(firstname, lastname, email, roles, birthDay, phone, pays, adress, gender);
             }
         } catch (SQLException ex) {
             ex.getMessage();

@@ -11,20 +11,71 @@ package edu.gestudent.entities;
  */
 public class Student extends user {
     
-    private int idclass;
 
     public Student(String lastname, String firstname, String email, String birthDay, int phone, String pays, String adress, String gender) {
         super(lastname, firstname, email, birthDay, phone, pays, adress, gender);
         
     }
 
-    
-
-    public Student( String lastname, String firstname, String email, String birthDay, int phone, String pays, String adress, String gender ,int idclass) {
-        super(lastname, firstname, email, birthDay, phone, pays, adress, gender);
-        this.idclass = idclass;
+    public String getUsername() {
+        return username;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getConfirmation_token() {
+        return confirmation_token;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public String getBirthDay() {
+        return birthDay ;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public String getPays() {
+        return pays;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getIdclass() {
+        return idclass;
+    }
+
+    
+
+   
     @Override
     public String toString() {
         return  super.toString();
