@@ -31,20 +31,33 @@ public class behaviourCRUD {
     }
 
     public void ajouterbeh(Behaviour b) {
-        String requete2 = "INSERT INTO behaviour (attendance,award)VALUES (?,?)";
+        String requete2 = "INSERT INTO behaviour (award,nombeh)VALUES (?,?)";
 
         try {
             PreparedStatement pst = con.prepareStatement(requete2);
 //            pre = con.prepareStatement("INSERT INTO behaviour (attendance,award)VALUES (?,?)");
-            pst.setInt(1, b.getAttendance());
-            pst.setInt(2, b.getAward());
+            pst.setInt(1, b.getAward());
+            pst.setString(2, b.getNombeh());
             pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
     }
+  public void ajouteratt(Behaviour b) {
+        String requete5 = "INSERT INTO behaviour (attendance)VALUES (?)";
 
+        try {
+            PreparedStatement pst = con.prepareStatement(requete5);
+//            pre = con.prepareStatement("INSERT INTO behaviour (attendance,award)VALUES (?,?)");
+            pst.setInt(1, b.getAttendance());
+            
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
 //         public boolean updateaward(String idcode, String image) throws SQLException {
 //
 //        PreparedStatement pre = con.prepareStatement("update behaviour set image =? where idcode=? ;");
@@ -97,11 +110,11 @@ public class behaviourCRUD {
 
     }
 
-    public boolean delete(int idbeh) throws SQLException {
+    public boolean delete(Behaviour b) throws SQLException {
 
         PreparedStatement pre = con.prepareStatement("Delete from behaviour where idbeh=? ;");
 try{
-        pre.setInt(1, idbeh);
+        pre.setInt(1, b.getIdbeh());
         if (pre.executeUpdate() != 0) {
             System.out.println("behaviour Deleted");
             return true;
@@ -125,7 +138,7 @@ try{
             while (rs.next()) {
                 Behaviour b = new Behaviour();
                 b.setIdbeh(rs.getInt("idbeh"));
-                b.setAttendance(rs.getInt(2));
+                b.setNombeh(rs.getString(4));
                 b.setAward(rs.getInt(3));
 
                 per.add(b);
