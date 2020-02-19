@@ -5,7 +5,6 @@
  */
 package edu.gestudent.entities;
 
-import java.sql.Date;
 
 /**
  *
@@ -14,25 +13,27 @@ import java.sql.Date;
 public class exams {
     int idexa;
     String nomex;
-    Date dateex;
-    int duree;
+    String dateex;
+    String duree;
 
     public exams() {
     }
 
-    public exams(int idexa, String nomex, Date dateex, int duree) {
+    public exams(int idexa, String nomex, String dateex, String duree) {
         this.idexa = idexa;
         this.nomex = nomex;
         this.dateex = dateex;
         this.duree = duree;
     }
 
-    public exams(String nomex, Date dateex, int duree) {
+    public exams(String nomex, String dateex, String duree) {
         this.nomex = nomex;
         this.dateex = dateex;
         this.duree = duree;
     }
-    
+
+
+  
 
     public int getIdexa() {
         return idexa;
@@ -50,21 +51,30 @@ public class exams {
         this.nomex = nomex;
     }
 
-    public Date getDateex() {
+    public String getDateex() {
         return dateex;
     }
 
-    public void setDateex(Date dateex) {
+    public void setDateex(String dateex) {
         this.dateex = dateex;
     }
 
-    public int getDuree() {
+    public String getDuree() {
         return duree;
     }
 
-    public void setDuree(int duree) {
+    public void setDuree(String duree) {
         this.duree = duree;
     }
+
+
+//    public int getDuree() {
+//        return duree;
+//    }
+//
+//    public void setDuree(int duree) {
+//        this.duree = duree;
+//    }
 
     @Override
     public int hashCode() {

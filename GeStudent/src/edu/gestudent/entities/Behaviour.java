@@ -14,10 +14,22 @@ public class Behaviour {
     int idbeh;
     int attendance;
     int award;
-
+    String nombeh;
+    
     public Behaviour() {
     }
 
+    public Behaviour(int award, String nombeh) {
+        this.award = award;
+        this.nombeh = nombeh;
+    }
+
+    public Behaviour(int idbeh, int award, String nombeh) {
+        this.idbeh = idbeh;
+        this.award = award;
+        this.nombeh = nombeh;
+    }
+    
     public Behaviour(int idbeh, int attendance, int award) {
         this.idbeh = idbeh;
         this.attendance = attendance;
@@ -27,6 +39,14 @@ public class Behaviour {
     public Behaviour(int attendance, int award) {
         this.attendance = attendance;
         this.award = award;
+    }
+
+    public String getNombeh() {
+        return nombeh;
+    }
+
+    public void setNombeh(String nombeh) {
+        this.nombeh = nombeh;
     }
 
     public int getIdbeh() {
