@@ -59,6 +59,8 @@ public class ExamenController implements Initializable {
 
     @FXML
     private TableView<exams> examtv;
+    @FXML
+    private TextField txtduree1;
 
 //    public int getTxtduree() {
 //        return Integer.parseInt(txtduree.getText());
@@ -181,13 +183,20 @@ public class ExamenController implements Initializable {
 
     @FXML
     private void displayex(ActionEvent event) {
+         data.clear();
+        data.addAll(exc.RechercheReclamation(txtduree1.getText()));
+          this.idexa.setCellValueFactory(new PropertyValueFactory<>("idexa"));
+       this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
+       this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
+       this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
+        this.examtv.setItems(data);
     }
 //      @FXML
 //    public void changeNameCellEvent(CellEditEvent edittedCell
 //    ) {
 //        exams ExamSelected = examtv.getSelectionModel().getSelectedItem();
 //        ExamSelected.setNomex(edittedCell.getNewValue().toString());
-//    }
+//  }
     @FXML
      public void changeDateCellEvent(CellEditEvent edittedCell
     ) {

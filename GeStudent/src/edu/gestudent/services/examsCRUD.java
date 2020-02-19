@@ -101,6 +101,30 @@ try{
         }
         return per;
     }
+     public List<exams> RechercheReclamation(String rech) {
+
+        ArrayList<exams> list = new ArrayList<>();
+        try {
+            String requete = "SELECT * FROM exams WHERE nomex LIKE '%"+rech+"%'";
+            
+
+            PreparedStatement pre = con.prepareStatement(requete);           
+            ResultSet rs = pre.executeQuery();
+
+            while (rs.next()) {
+                exams t = new exams();
+                t.setIdexa(rs.getInt("idexa"));
+                t.setNomex(rs.getString("nomex"));
+                t.setDateex(rs.getString("dateex"));
+                t.setDuree(rs.getString("duree"));
+                list.add(t);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+
 //     public List<exams> rechrecherlivre(String Name)
 //    {
 //        try {

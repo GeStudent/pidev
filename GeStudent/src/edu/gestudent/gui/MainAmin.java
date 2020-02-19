@@ -23,7 +23,7 @@ public class MainAmin extends Application {
         @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Behaviour.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Examen.fxml"));
                     
                     Scene scene = new Scene(root, 500, 500);
                     
