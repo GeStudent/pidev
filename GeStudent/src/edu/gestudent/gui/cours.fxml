@@ -40,7 +40,7 @@
                               <TableColumn fx:id="duration" prefWidth="138.0" text="duration" />
                           </columns>
                         </TableView>
-                        <Button fx:id="coursclasse" layoutX="477.0" layoutY="375.0" mnemonicParsing="false" onAction="#interfacecoursclasse" prefHeight="31.0" prefWidth="378.0" text="Affecter les cours à une classe" />
+                        <Button fx:id="coursclasse" layoutX="477.0" layoutY="375.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="378.0" text="Affecter les cours à une classe" />
                      </children>
                   </AnchorPane>
             </content>

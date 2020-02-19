@@ -19,12 +19,12 @@ import javafx.stage.Stage;
  *
  * @author Ayadi
  */
-public class MainNouha extends Application {
+public class MainNouha  extends Application {
     
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Clubpage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("cours.fxml"));
                     
                     Scene scene = new Scene(root, 500, 500);
                     
@@ -32,15 +32,17 @@ public class MainNouha extends Application {
                     primaryStage.setScene(scene);
                     primaryStage.show();
         } catch (IOException ex) {
-            Logger.getLogger(Mainyassine.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainNouha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
+  public static void main(String[] args) {
+  launch(args);
+   }
+
+  
     
 }
