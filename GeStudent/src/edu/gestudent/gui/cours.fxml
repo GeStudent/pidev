@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.CoursController">
+   <children>
+      <TabPane prefHeight="612.0" prefWidth="1081.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="cours">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox layoutX="67.0" layoutY="64.0" spacing="30.0">
+                           <children>
+                              <VBox layoutX="67.0" layoutY="69.0" spacing="32.0">
+                                 <children>
+                                    <Label layoutX="67.0" layoutY="69.0" prefHeight="21.0" prefWidth="61.0" text="name" />
+                                    <Label layoutX="77.0" layoutY="136.0" prefHeight="21.0" prefWidth="61.0" text="lesson" />
+                                    <Label layoutX="67.0" layoutY="217.0" prefHeight="21.0" prefWidth="61.0" text="duration" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="151.0" layoutY="64.0" spacing="20.0">
+                                 <children>
+                                    <TextField fx:id="nametxt" layoutX="157.0" layoutY="64.0" />
+                                    <TextField fx:id="lessontxt" layoutX="157.0" layoutY="131.0" />
+                                    <TextField fx:id="durationtxt" layoutX="151.0" layoutY="212.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Button layoutX="57.0" layoutY="263.0" mnemonicParsing="false" onAction="#Addcours" text="Add" />
+                        <TableView fx:id="tabviewcours" layoutX="472.0" layoutY="23.0" prefHeight="299.0" prefWidth="391.0">
+                          <columns>
+                            <TableColumn fx:id="name" prefWidth="127.0" text="name" />
+                            <TableColumn fx:id="lesson" prefWidth="125.0" text="lesson" />
+                              <TableColumn fx:id="duration" prefWidth="138.0" text="duration" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="coursclasse" layoutX="477.0" layoutY="375.0" mnemonicParsing="false" onAction="#interfacecoursclasse" prefHeight="31.0" prefWidth="378.0" text="Affecter les cours à une classe" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="class">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="namectxt" layoutX="133.0" layoutY="102.0" />
+                        <Label layoutX="34.0" layoutY="107.0" prefHeight="21.0" prefWidth="72.0" text="nameC" />
+                        <TableView fx:id="tableviewclass" layoutX="593.0" layoutY="61.0" prefHeight="280.0" prefWidth="340.0">
+                          <columns>
+                            <TableColumn fx:id="nameC" prefWidth="75.0" text="nameC" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="38.0" layoutY="310.0" mnemonicParsing="false" onAction="#addclass" text="add" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
