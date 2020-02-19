@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author CHIKHAOUI NOUHA 1
  */
-public class coursCRUD  {
+public class coursCRUD {
 
     private Connection con;
     private Statement ste;
@@ -35,15 +35,18 @@ public class coursCRUD  {
     public void ajouter(cours c) throws SQLException
     {
     PreparedStatement pre=con.prepareStatement("INSERT INTO `cours` ( `name`, `lesson`, `duration`) VALUES ( ?, ?, ?);");
-    pre.setString(1, c.getName());
-    pre.setString(2, c.getlesson());
-     pre.setInt(3, c.getduration());
+   pre.setString(1, c.getName());
+    pre.setString(2, c.getLesson());
+     pre.setInt(3, c.getDuration());
     pre.executeUpdate();
     }
             
 
     
-    public boolean supprimercour(int idcour) throws SQLException {
+    
+        
+        
+            public boolean supprimercour(int idcour) throws SQLException {
 
         PreparedStatement pre = con.prepareStatement("Delete from cours where idcour=? ;");
 try{
@@ -63,8 +66,9 @@ try{
 
     
     }
-    
-     
+            
+                     
+ 
      public boolean modifiercours(int duration, int idcour) throws SQLException {
         try {
             PreparedStatement pre = con.prepareStatement("update cours set duration =? where idcour=? ;");
@@ -83,10 +87,20 @@ try{
             return false;
 
 
-    } 
+    }        
+            
+            
+
+
+    
+    
+    public boolean update(cours c) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
   
     
-      public List<cours> readAll()  {
+    public List<cours> readAll()  {
     List<cours> arr=new ArrayList<>();
     
     try{
@@ -108,6 +122,8 @@ try{
     return arr;
     }
 
+    
+
+    
 }
  
-
