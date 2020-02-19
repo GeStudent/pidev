@@ -64,4 +64,92 @@ public class tccCRUD {
             return arr;
         }
     }
+        
+         public List<tcc> recherchecour(int idcours) throws SQLException {
+        {
+            List<tcc> arr = new ArrayList<>();
+       
+            
+            PreparedStatement pre = con.prepareStatement("SELECT C.name,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idcours= ? ");   
+             
+            pre.setInt(1, idcours);
+            ResultSet rs = pre.executeQuery(); 
+            while (rs.next()) {
+                     
+                String name = rs.getString("name");
+                
+                String nameC = rs.getString("nameC");  
+          
+                int duration = rs.getInt(2);
+                String firstname = rs.getString("firstname");
+
+                tcc r = new tcc(name, nameC, duration, firstname);
+                arr.add(r);
+            }
+            return arr;
+        }
+         
+         }
+
+         public List<tcc> rechercheprof(int idteacher) throws SQLException {
+        {
+            List<tcc> arr = new ArrayList<>();
+            
+            PreparedStatement pre = con.prepareStatement("SELECT C.name,c.duration, Cl.nameC, u.firstname FROM cours C, class cl, user u, tcc t WHERE t.idcours = c.idcour AND t.idteacher = u.id and cl.idclass=t.idclass and t.idteacher= ? ");   
+          
+            pre.setInt(1, idteacher);
+             
+            
+       
+            ResultSet rs = pre.executeQuery(); 
+           
+            while (rs.next()) {
+                String name = rs.getString("name");
+                
+                String nameC = rs.getString("nameC");  
+          
+                int duration = rs.getInt(2);
+                String firstname = rs.getString("firstname");
+
+                tcc r = new tcc(name, nameC, duration, firstname);
+                arr.add(r);
+            }
+            return arr;
+            
+        }
+         
+         
+         }
+
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

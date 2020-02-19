@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author CHIKHAOUI NOUHA
  */
-public class classCRUD implements Icrud<classe> {
+public class classCRUD  {
 
     private Connection con;
     private Statement ste;
@@ -41,32 +41,55 @@ public class classCRUD implements Icrud<classe> {
    ;
     pre.executeUpdate();
     }
-            
-
     
-    public boolean delete(classe cl) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+        public boolean supprimerclass(int idclass) throws SQLException {
+
+              PreparedStatement pre = con.prepareStatement("Delete from class where idclass=? ;");
+        try {
+            pre.setInt(1, idclass);
+            if (pre.executeUpdate() != 0) {
+                System.out.println("idclass Deleted"); 
+            return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("id class not found!!!");
+        return false;
+
     }
 
-    
-    
-    public boolean update(classe cl) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public boolean modifierclass(String nameC, int idclass) throws SQLException {
+        try {
+            PreparedStatement pre = con.prepareStatement("update class set nameC =? where idclass=? ;");
+
+            pre.setString(1, nameC);
+            pre.setInt(2, idclass);
+
+            if (pre.executeUpdate() != 0) {
+                System.out.println(" updated");
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("id  not found!!!");
+        return false;
+
     }
 
-  
-    
     public List<classe> readAll() throws SQLException {
-    List<classe> arr=new ArrayList<>();
-    ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select * from class");
-     while (rs.next()) {                
-               int idclass=rs.getInt(1);
-               String nameC=rs.getString("nameC");
-             
-               classe cl=new classe( nameC,idclass);
-     arr.add(cl);
-     }
-    return arr;
+        List<classe> arr = new ArrayList<>();
+        ste = con.createStatement();
+        ResultSet rs = ste.executeQuery("select * from class");
+        while (rs.next()) {
+            int idclass = rs.getInt(1);
+            String nameC = rs.getString("nameC");
+
+            classe cl = new classe(nameC, idclass);
+            arr.add(cl);
+        }
+        return arr;
     }
 }

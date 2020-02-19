@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author CHIKHAOUI NOUHA
  */
-public class coursCRUD implements Icrud<cours> {
+public class coursCRUD  {
 
     private Connection con;
     private Statement ste;
@@ -43,32 +43,71 @@ public class coursCRUD implements Icrud<cours> {
             
 
     
-    public boolean delete(cours c) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean supprimercour(int idcour) throws SQLException {
+
+        PreparedStatement pre = con.prepareStatement("Delete from cours where idcour=? ;");
+try{
+        pre.setInt(1, idcour);
+        if (pre.executeUpdate() != 0) 
+            {
+            System.out.println("idcour Deleted");
+
+            
+           return true;
+        }
+         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("id cours not found!!!");
+        return false;
 
     
-    
-    public boolean update(cours c) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+     
+     public boolean modifiercours(int duration, int idcour) throws SQLException {
+        try {
+            PreparedStatement pre = con.prepareStatement("update cours set duration =? where idcour=? ;");
 
+            pre.setInt(1, duration);
+            pre.setInt(2, idcour);
+
+            if (pre.executeUpdate() != 0) {
+                System.out.println(" updated");
+                return true;
+            }
+             } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+            System.out.println("id  not found!!!");
+            return false;
+
+
+    } 
   
     
-    public List<cours> readAll() throws SQLException {
+      public List<cours> readAll()  {
     List<cours> arr=new ArrayList<>();
+    
+    try{
     ste=con.createStatement();
-    ResultSet rs=ste.executeQuery("select * from cours");
+    ResultSet rs=ste.executeQuery("select idcour,name,lesson,duration from cours");
      while (rs.next()) {                
-               int idcour=rs.getInt(2);
+               int idcour=rs.getInt("idcour");
                String name=rs.getString("name");
-               String lesson=rs.getString(3);
+               String lesson=rs.getString("lesson");
                int duration=rs.getInt("duration");
-               cours c=new cours( name,idcour, lesson, duration);
+               
+               
+               cours c=new cours( name,idcour,lesson, duration);
      arr.add(c);
      }
+    } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     return arr;
     }
+
 }
  
 

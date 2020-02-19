@@ -5,10 +5,12 @@
  */
 package edu.gestudent.tests;
 
+import edu.gestudent.entities.classEtudiant;
 import edu.gestudent.entities.classe;
 import edu.gestudent.entities.cours;
 import edu.gestudent.entities.tcc;
 import edu.gestudent.services.classCRUD;
+import edu.gestudent.services.classEtudiantCRUD;
 import edu.gestudent.services.coursCRUD;
 import edu.gestudent.services.tccCRUD;
 import java.sql.SQLException;
@@ -25,27 +27,51 @@ public class mainclassNouha {
          tccCRUD te = new tccCRUD();
          classCRUD a = new classCRUD(); 
       
-       //tcc t = new tcc(5,6,2);
-        
+         classEtudiantCRUD ce = new classEtudiantCRUD();
          
-             //classe cl = new classe("ce1");
+      // `idclass`, `idteacher`,`idcours`) ce1/farah/philo/10
+       // tcc t = new tcc(6,6,22);
+        classEtudiant e = new classEtudiant(1,1);
+         classEtudiant el = new classEtudiant(1,2);
+          classEtudiant ell = new classEtudiant(1,3);
+           classEtudiant elll = new classEtudiant(1,4);
            
-       // cours c1 = new cours("physique","ph",1);
-        //
-      
+      // classe cl = new classe("bac ");
+           
+      //  cours c = new cours("anglais","past ",2);
         
         try {
-             //te.ajouter(t);
-                List<tcc> list3 = te.affichertc(6);
-        System.out.println(list3);
-           //a.ajouter(cl);
+                       //ce.ajouter(e);
+                   // ce.ajouter(el);
+                 //     ce.ajouter(ell);
+                      // ce.ajouter(elll);
+            
+            //a.modifierclass( "bac",1);
+           // ser.modifiercours(12, 22) ;
+           // ser.supprimercour(21);
+           // a.supprimerclass(7);
+            // te.ajouter(t);//ajout tcc
+         // List<tcc> list3 = te.rechercheclass(6);//recherche classe
+          // System.out.println(list3);
+             List<classEtudiant> list10 = ce.rechercheclassetudiant(1);//rechercheclasseetudiant
+            System.out.println(list10);
+             
+            // List<tcc> list4 = te.rechercheprof(9);//recherche prof
+            //System.out.println(list4);
+             
+            // List<tcc> list5 = te.recherchecour(22);//recherche cours
+            // System.out.println(list5);
+              
+         //      a.ajouter(cl); //ajout classe
          
-            //ser.ajouter(c2);
-          // List<cours> list = ser.readAll();
-          // List<classe> list2 = a.readAll();
-       
-          //System.out.println(list);
-         // System.out.println(list2);
+             // ser.ajouter(c);//ajout cours
+               
+             // List<cours> list = ser.readAll();
+             // System.out.println(list);
+               
+              // List<classe> list2 = a.readAll();
+             // System.out.println(list2);
+          
            
         } catch (SQLException ex) {
             ex.getMessage();        }
