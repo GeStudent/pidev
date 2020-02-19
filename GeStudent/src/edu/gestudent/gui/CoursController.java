@@ -31,7 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author CHIKHAOUI NOUHA
+ * @author CHIKHAOUI NOUHA 1
  */
 public class CoursController implements Initializable {
 

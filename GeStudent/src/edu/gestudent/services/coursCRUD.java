@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author CHIKHAOUI NOUHA
+ * @author CHIKHAOUI NOUHA 1
  */
 public class coursCRUD  {
 

@@ -16,6 +16,38 @@ public class cours {
       private int idcour;
     private String lesson;
     private int duration;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIdcour() {
+        return idcour;
+    }
+
+    public void setIdcour(int idcour) {
+        this.idcour = idcour;
+    }
+
+    public String getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(String lesson) {
+        this.lesson = lesson;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
     
 
     public cours( String name,int idcour, String lesson,int duration) {
@@ -32,38 +64,8 @@ public class cours {
                 this.duration = duration;
 
     }
-
-   
- public String getName() {
-        return name;
-    }
-
-    public int getIdcour() {
-        return idcour;
-    }
-
-   
-    public String getlesson() {
-        return lesson;
-    }
-    public int getduration() {
-        return duration;
-    }
-
-    public void setlesson(String lesson) {
-        this.lesson = lesson;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-     public void setduration(int duration) {
-        this.duration = duration;
-    }
-
-    public void setIdcour(int idcour) {
-        this.idcour = idcour;
-    }
+ 
+ 
 
     @Override
     public int hashCode() {
@@ -89,9 +91,7 @@ public class cours {
 
     @Override
     public String toString() {
-        return "cours{" + "idcour=" + idcour + ", name=" + name + '}';
+        return "cours{" + "idcour=" + idcour + "lesson=" + lesson + "duration=" + duration + ", name=" + name + '}';
     }
 
 }
-
-
