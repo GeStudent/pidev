@@ -7,7 +7,7 @@ package edu.gestudent.entities;
 
 /**
  *
- * @author CHIKHAOUI NOUHA
+ * @author CHIKHAOUI NOUHA 1
  */
 public class classEtudiant {
     
