@@ -25,8 +25,8 @@ public class Email {
 
     public static void sendEmail(String address, String subject, HashMap<String, String> message) throws Exception {
 
-        String from = "yassine.ayadi@esprit.tn";
-        String pass = "yassinecss1928";
+        String from = "amin.bencheikh@esprit.tn";
+        String pass = "197382465";
         String[] to = {address};
         String host = "smtp.gmail.com";
 

@@ -5,13 +5,23 @@
  */
 package edu.gestudent.gui;
 
+import com.mysql.jdbc.StringUtils;
+import edu.gestudent.entities.Emprunt;
 import edu.gestudent.entities.Livre;
 import edu.gestudent.entities.exams;
 import edu.gestudent.services.examsCRUD;
+import edu.gestudent.utils.DataBase;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,6 +31,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -38,7 +49,13 @@ import javafx.util.converter.IntegerStringConverter;
  * @author Asus
  */
 public class ExamenController implements Initializable {
-
+ @FXML
+  PieChart piechart;
+ Connection con;
+    Statement ste;
+       ObservableList < PieChart.Data > piechartdata;
+ ArrayList < String > p = new ArrayList < String > ();
+   ArrayList < Integer > c = new ArrayList < Integer > ();
     examsCRUD exc = new examsCRUD();
     @FXML
     private TextField txtnom;
@@ -71,9 +88,13 @@ public class ExamenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+            loadData();
+                
+  piechart.setData(piechartdata);
+  
         data.addAll(exc.afficherex());
-    
-      
+
+
         // TODO
         this.idexa.setCellValueFactory(new PropertyValueFactory<>("idexa"));
        this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
@@ -87,18 +108,72 @@ public class ExamenController implements Initializable {
 //        this.duree.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
+     public int getnomq() throws SQLException {
+         int q=4;
+ con = DataBase.getInstance().getConnection();
+        String requete4 = "select nomex from exams;";
+        PreparedStatement pst;
+       
+            pst = con.prepareStatement(requete4);
+            
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                       exams e = new exams();    
+                       if(rs.getString("nomex").equals(nomex))
+                        q++;
 
+            } 
+                    return q;
+    }
+     
+ public void loadData() {
+     
+    String query = "select * From exams "; //ORDER BY P asc
+ 
+    piechartdata = FXCollections.observableArrayList();
+
+ con = DataBase.getInstance().getConnection();
+ 
+    try {
+      
+      ResultSet rs = con.createStatement().executeQuery(query);
+      while (rs.next()) {
+           exams e = new exams();
+     //	int result = Integer.parseInt(e.getDuree());
+        piechartdata.add(new PieChart.Data(rs.getString("nomex"), rs.getInt("idexa")));
+        p.add(rs.getString("nomex"));
+        c.add(rs.getInt("idexa"));
+      }
+    } catch (Exception e) {
+  System.out.println(e.getMessage());
+    }}
     @FXML
     private void addex(ActionEvent event) {
+        Alert alertl = new Alert(Alert.AlertType.ERROR);
+           if(datetxt.getValue().isBefore(LocalDate.now())){
+               alertl.setTitle("Date Failed");
+               alertl.setContentText("The Date can't be in the Past !!");
+                alertl.showAndWait();
+               return;
+           }
+           System.out.println(datetxt.getValue().isBefore(LocalDate.now()));
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+           if(txtduree.getText().matches("(.*):(.*)")==false){
+                alert2.setTitle("Duree Failed");
+               alert2.setContentText("The Time must be like 00:00 !!");
+                alert2.showAndWait();
+               return;
+           }
+               System.out.println(txtduree.getText().matches("(.*):(.*)"));
         String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
-      
+     
         String numberAsString=txtduree +"Heurs";
         
        // String duree= txtduree.getText().concat(txtduree+"Heurs");
         //System.out.println(date);
 
         exams e;
-        e = new exams(txtnom.getText(), date, txtduree.getText()+"Heurs");
+        e = new exams(txtnom.getText(), date, txtduree.getText());
         exc.ajoutex(e);
         Alert succAddExamAlert = new Alert(Alert.AlertType.INFORMATION);
         succAddExamAlert.setTitle("Add Exam");

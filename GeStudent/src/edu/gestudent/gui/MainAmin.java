@@ -25,7 +25,7 @@ public class MainAmin extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Examen.fxml"));
                     
-                    Scene scene = new Scene(root, 500, 500);
+                    Scene scene = new Scene(root, 632, 400);
                     
                     primaryStage.setTitle("GeStudent+");
                     primaryStage.setScene(scene);
