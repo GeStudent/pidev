@@ -47,6 +47,7 @@ public class Emprunt {
         this.id_emprunt = id_emprunt;
     }
 
+  
     public String getDate_emprunt() {
         return date_emprunt;
     }
@@ -89,7 +90,7 @@ public class Emprunt {
 
     @Override
     public String toString() {
-        return "Emprunt{" + "date_retour=" + date_retour + ", name=" + name + '}';
+        return "Emprunt{" + "date_retour=" + date_retour + ", name=" + name + ", id=" + id_emprunt +  ", id_livre=" + id_livre +'}';
     }
     
     

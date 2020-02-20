@@ -48,15 +48,17 @@ public class EmpruntCrud {
 
     }
 
-    public boolean supprimeremprunt(Emprunt e, int id_emprunt) {
+    public boolean supprimeremprunt(Emprunt e,int id_emprunt) {
 
-        String reqeute = "delete from emprunt  where (id_emprunt = ?) ;";
+        String reqeute = "delete from emprunt  where (id_emprunt = ?);";
         try {
             PreparedStatement pst = cn2.prepareStatement(reqeute);
+            System.out.println("id : "+e.getId_livre());
             pst.setInt(1, id_emprunt);
             if (pst.executeUpdate() != 0) {
-                System.out.println("the book is back");
+                System.out.println("id : "+e.getId_livre());
                 incrementqte(e.getId_livre());
+                //System.out.println("the book is back");
                 return true;
 
             }
@@ -96,6 +98,7 @@ public class EmpruntCrud {
             while (rs.next()) {
                 Emprunt e = new Emprunt();
                 e.setId_emprunt(rs.getInt("id_emprunt"));
+                System.out.println("idemprunt: "+e.getId_emprunt());
                 e.setDate_emprunt(rs.getString("date_emprunt"));
                 e.setDate_retour(rs.getString("datee_retour"));
                 e.setId(rs.getInt("id"));
@@ -107,14 +110,14 @@ public class EmpruntCrud {
         return emp;
     }
 
-    public int getquantite(int name) {
+    public int getquantite(int id_liv) {
         int q = 0;
 
         String requete4 = "select quantite from livres where id_livre=?;";
         PreparedStatement pst;
         try {
             pst = cn2.prepareStatement(requete4);
-            pst.setInt(1, name);
+            pst.setInt(1, id_liv);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 q = rs.getInt(1);
@@ -142,6 +145,7 @@ public class EmpruntCrud {
 
     public void incrementqte(int id_l) {
         int q = getquantite(id_l);
+        System.out.println("quantite : "+q);
         q++;
         String requete4 = "update livres SET quantite=? where id_livre=?;";
         PreparedStatement pst;
@@ -158,7 +162,7 @@ public class EmpruntCrud {
 
     public List<Emprunt> afficherlivreemprunte(int id) {
         ArrayList<Emprunt> livresemprunt = new ArrayList<>();
-        String nom = "asba", dateret = "";
+        String nom = "", dateret = "";
 
         String requete4 = "select l.name,e.date_retour,e.id_emprunt from livres l join emprunt e on l.id_livre=e.id_livre where id=?;";
         PreparedStatement pst;
@@ -171,6 +175,8 @@ public class EmpruntCrud {
                 dateret = rs.getString(2);
 
                 Emprunt emp=new Emprunt(dateret,nom);
+                emp.setId_emprunt(rs.getInt(3));
+                System.out.println(rs.getInt(3));
                 livresemprunt.add(emp);
 
             }
@@ -179,5 +185,22 @@ public class EmpruntCrud {
         //livresemprunt.clear();
         return livresemprunt;
 
+    }
+    public int getidemp(int id,int idl) {
+        int q = 0;
+
+        String requete4 = "select id_emprunt from emprunt where id=? and id_livre=? ;";
+        PreparedStatement pst;
+        try {
+            pst = cn2.prepareStatement(requete4);
+            pst.setInt(1, id);
+            pst.setInt(2, idl);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                q = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+        }
+        return q;
     }
 }

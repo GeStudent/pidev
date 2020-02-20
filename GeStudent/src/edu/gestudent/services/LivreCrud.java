@@ -153,4 +153,20 @@ public class LivreCrud {
         }
         return null;
     }
+    public int getidliv(String name) {
+        int q = 0;
+
+        String requete4 = "select id_livre from livres where name=?;";
+        PreparedStatement pst;
+        try {
+            pst = cn2.prepareStatement(requete4);
+            pst.setString(1, name);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                q = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+        }
+        return q;
+    }
 }

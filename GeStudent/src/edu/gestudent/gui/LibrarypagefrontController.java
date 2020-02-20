@@ -115,6 +115,9 @@ public class LibrarypagefrontController implements Initializable {
 
         dataemp.clear();
         dataemp.addAll(ecr.afficherlivreemprunte(1));
+        data.clear();
+        data.addAll(lcr.afficherlivre());
+
     }
 
     @FXML
@@ -136,15 +139,21 @@ public class LibrarypagefrontController implements Initializable {
             Alert retournerlivreAlert = new Alert(Alert.AlertType.CONFIRMATION);
             retournerlivreAlert.setTitle("Delete book");
             retournerlivreAlert.setHeaderText(null);
+
             retournerlivreAlert.setContentText("Do want to return this book ?");
             Optional<ButtonType> optionDeleteBookAlert = retournerlivreAlert.showAndWait();
             if (optionDeleteBookAlert.get() == ButtonType.OK) {
                 Emprunt E = livreeemprunter.getSelectionModel().getSelectedItem();
+                // System.out.println("ide:"+E.getId_emprunt());
+                E.setId_livre(lcr.getidliv(E.getName()));
+                // System.out.println(E.toString());
                 ecr.supprimeremprunt(E, E.getId_emprunt());
-                System.out.println(E.getId_emprunt());
+                // System.out.println(lcr.getidliv(E.getName()));
+
                 dataemp.clear();
                 dataemp.addAll(ecr.afficherlivreemprunte(1));
-
+                data.clear();
+                data.addAll(lcr.afficherlivre());
                 //Alert Delete Blog :
                 Alert succretournerlivreAlert = new Alert(Alert.AlertType.INFORMATION);
                 succretournerlivreAlert.setTitle("Blog");

@@ -40,7 +40,7 @@
                                           </HBox>
                                           <TextField fx:id="txtauthor" />
                                           <TextField fx:id="txturl" />
-                                          <ComboBox fx:id="combocategorie" prefWidth="150.0" promptText="choose.." />
+                                          <ComboBox fx:id="combocategorie" prefHeight="25.0" prefWidth="179.0" promptText="choose.." />
                                           <TextField fx:id="txtquantity" />
                                        </children>
                                     </VBox>
@@ -63,6 +63,7 @@
                         <Button fx:id="ReturnButton" layoutX="487.0" layoutY="371.0" mnemonicParsing="false" onAction="#ReturnAction" prefHeight="51.0" prefWidth="139.0" text="Return" />
                         <Button layoutX="28.0" layoutY="371.0" mnemonicParsing="false" onAction="#addBook" prefHeight="35.0" prefWidth="102.0" text="Add" />
                         <Button layoutX="480.0" layoutY="315.0" mnemonicParsing="false" onAction="#select" text="select" />
+                        <TextField fx:id="searchTF" layoutX="565.0" layoutY="315.0" onAction="#filter" promptText="Search" />
                      </children>
                   </AnchorPane>
             </content>

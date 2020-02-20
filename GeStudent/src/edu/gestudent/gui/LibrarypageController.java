@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,7 +80,9 @@ public class LibrarypageController implements Initializable {
     private TableColumn<Livre, String> categiries;
     @FXML
     private ComboBox<String> combocategorie;
-    public ObservableList<String> categorieff = FXCollections.observableArrayList("Comedy", "Drama","Action","History","Thriller","Romantic","Biography");
+    public ObservableList<String> categorieff = FXCollections.observableArrayList("Comedy", "Drama", "Action", "History", "Thriller", "Romantic", "Biography");
+    @FXML
+    private TextField searchTF;
 
     public int getTxtquantity() {
         return Integer.parseInt(txtquantity.getText());
@@ -251,7 +254,7 @@ public class LibrarypageController implements Initializable {
 
     @FXML
     private void upload(ActionEvent event) {
-        
+
         FileChooser fc = new FileChooser();
         String imageFile = "";
         File f = fc.showOpenDialog(null);
@@ -262,5 +265,19 @@ public class LibrarypageController implements Initializable {
         }
     }
 
+    @FXML
+    private void filter(ActionEvent event) {
+        data.clear();
+        // System.out.println("heyy yuuu");
+        data.addAll(lcr.afficherlivre().stream().filter((art)
+                -> art.getName().toLowerCase().contains(searchTF.getText().toLowerCase())
+                || art.getAuthor().toLowerCase().contains(searchTF.getText().toLowerCase())
+                || art.getCategorie().toLowerCase().contains(searchTF.getText().toLowerCase())
+        //                || Integer.toString(art.getPrixAchat()).equals(searchTF.getText())
+        //                || Integer.toString(art.getPrixVente()).equals(searchTF.getText())
+
+        //kahaw naamel recherche keen aala 3 hedhoukom wel be9i ?zeyed  okk
+        ).collect(Collectors.toList()));
     }
 
+}
