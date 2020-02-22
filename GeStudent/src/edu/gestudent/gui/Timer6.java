@@ -196,6 +196,8 @@ public class Timer6 extends javax.swing.JFrame {
 //      hours= (int) shour.getValue();
 //               minute= (int) sminute.getValue();
                seconds=gets();
+                System.out.println("i am in !");
+
                 for (;;) {
                     if (state == true) {
                         try {

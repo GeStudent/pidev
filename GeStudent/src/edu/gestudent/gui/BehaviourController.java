@@ -11,6 +11,7 @@ import edu.gestudent.entities.Livre;
 import edu.gestudent.entities.exams;
 import edu.gestudent.services.behaviourCRUD;
 import edu.gestudent.services.examsCRUD;
+import edu.gestudent.utils.gestudentAssistantUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,7 +26,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -60,11 +63,11 @@ public class BehaviourController implements Initializable {
     @FXML
     private TableView<Behaviour> awardtv;
     @FXML
-    private TableColumn<Behaviour, Integer> idbeh;
-    @FXML
     private TableColumn<Behaviour, String> nombeh;
     @FXML
     private TableColumn<Behaviour, Integer> award;
+    @FXML
+    private Button Timer;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -74,7 +77,6 @@ public class BehaviourController implements Initializable {
     
       
         // TODO
-        this.idbeh.setCellValueFactory(new PropertyValueFactory<>("idbeh"));
        this.nombeh.setCellValueFactory(new PropertyValueFactory<>("nombeh"));
        this.award.setCellValueFactory(new PropertyValueFactory<>("award"));
       
@@ -83,9 +85,9 @@ public class BehaviourController implements Initializable {
 
     @FXML
     private void Timer(ActionEvent event) throws IOException {
-        Timer6 t=new Timer6();
- //f=new JFrame();
- t.setVisible(true);
+  
+             gestudentAssistantUtil.loadWindow(getClass().getResource("Timer.fxml"), "Timer", null);
+
     }
 
     @FXML

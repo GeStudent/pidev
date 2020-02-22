@@ -6,16 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="302.0" prefWidth="484.0" style="-fx-border-width: 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.TimerController">
+<AnchorPane id="AnchorPane" prefHeight="302.0" prefWidth="484.0" style="-fx-border-width: 2;" stylesheets="@../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gestudent.gui.TimerController">
    <children>
-      <Label fx:id="label" layoutX="29.0" layoutY="33.0" prefHeight="63.0" prefWidth="397.0" />
+      <Label fx:id="label" blendMode="SOFT_LIGHT" layoutX="29.0" layoutY="33.0" prefHeight="63.0" prefWidth="397.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Times New Roman" size="21.0" />
+         </font></Label>
       <Label layoutX="29.0" layoutY="191.0" prefHeight="63.0" prefWidth="146.0" text="Time of the Exam:" textFill="#e12020">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Spinner fx:id="shour" blendMode="DARKEN" layoutX="200.0" layoutY="210.0" prefHeight="25.0" prefWidth="69.0" />
-      <Spinner fx:id="sminute" layoutX="338.0" layoutY="210.0" prefHeight="25.0" prefWidth="63.0" />
+      <Spinner fx:id="sminute" blendMode="COLOR_BURN" editable="true" layoutX="338.0" layoutY="210.0" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: black;" />
       <Label layoutX="408.0" layoutY="204.0" prefHeight="37.0" prefWidth="69.0" text="Minutes" textFill="#e12020">
          <font>
             <Font size="18.0" />
@@ -36,5 +38,6 @@
             <Font name="Times New Roman" size="18.0" />
          </font>
       </Button>
+      <Spinner fx:id="shour" blendMode="COLOR_BURN" editable="true" layoutX="204.0" layoutY="210.0" prefHeight="25.0" prefWidth="63.0" />
    </children>
 </AnchorPane>

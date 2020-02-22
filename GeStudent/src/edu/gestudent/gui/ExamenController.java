@@ -5,12 +5,14 @@
  */
 package edu.gestudent.gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.mysql.jdbc.StringUtils;
 import edu.gestudent.entities.Emprunt;
 import edu.gestudent.entities.Livre;
 import edu.gestudent.entities.exams;
 import edu.gestudent.services.examsCRUD;
 import edu.gestudent.utils.DataBase;
+import edu.gestudent.utils.gestudentAssistantUtil;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,6 +23,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,6 +44,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -49,22 +55,61 @@ import javafx.util.converter.IntegerStringConverter;
  * @author Asus
  */
 public class ExamenController implements Initializable {
- @FXML
-  PieChart piechart;
- Connection con;
+
+    @FXML
+    PieChart piechart;
+    Connection con;
     Statement ste;
-       ObservableList < PieChart.Data > piechartdata;
- ArrayList < String > p = new ArrayList < String > ();
-   ArrayList < Integer > c = new ArrayList < Integer > ();
+        private static Statement stmt = null;
+    @FXML
+    private StackPane ExamInfoContainer;
+
+       public ResultSet execQuery(String query) {
+        ResultSet result;
+        try {
+            stmt = con.createStatement();
+            result = stmt.executeQuery(query);
+        }
+        catch (SQLException ex) {
+            System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
+            return null;
+        }
+        finally {
+        }
+        return result;
+    }
+     public ObservableList<PieChart.Data> getExamGraphStatistics() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+        try {
+            String qu1 = "SELECT COUNT(*) FROM exams";
+                        String qu2 = "SELECT COUNT(*) FROM behaviour";
+            ResultSet rs = execQuery(qu1);
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                data.add(new PieChart.Data("Total exams (" + count + ")", count));
+            }
+                  rs = execQuery(qu2);
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                data.add(new PieChart.Data("Behaviour in exams (" + count + ")", count));
+            }
+          
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+    ArrayList< String> p = new ArrayList< String>();
+    ArrayList< Integer> c = new ArrayList< Integer>();
     examsCRUD exc = new examsCRUD();
+    private StackPane rootPane;
     @FXML
     private TextField txtnom;
     @FXML
     private DatePicker datetxt;
     @FXML
     private TextField txtduree;
-    @FXML
-    private TableColumn<exams, Integer> idexa;
     @FXML
     private TableColumn<exams, String> nomex;
     @FXML
@@ -79,106 +124,113 @@ public class ExamenController implements Initializable {
     @FXML
     private TextField txtduree1;
 
-//    public int getTxtduree() {
-//        return Integer.parseInt(txtduree.getText());
-//    }
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            loadData();
-                
-  piechart.setData(piechartdata);
-  
+        //loadData();
+        initGraphs();
+
+      //  piechart.setData(piechartdata);
+
         data.addAll(exc.afficherex());
 
-
         // TODO
-        this.idexa.setCellValueFactory(new PropertyValueFactory<>("idexa"));
-       this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
-       this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
-       this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
+        this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
+        this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
+        this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         this.examtv.setItems(data);
-         //this for edit
-           this.examtv.setEditable(true);
+        //this for edit
+        this.examtv.setEditable(true);
 //        this.nomex.setCellFactory(TextFieldTableCell.forTableColumn());
         this.dateex.setCellFactory(TextFieldTableCell.forTableColumn());
 //        this.duree.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
-     public int getnomq() throws SQLException {
-         int q=4;
- con = DataBase.getInstance().getConnection();
+    public void initGraphs(){
+            piechart = new PieChart(getExamGraphStatistics());
+ ExamInfoContainer.getChildren().add(piechart);
+}
+
+    public int getnomq() throws SQLException {
+        int q = 4;
+        con = DataBase.getInstance().getConnection();
         String requete4 = "select nomex from exams;";
         PreparedStatement pst;
-       
-            pst = con.prepareStatement(requete4);
-            
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                       exams e = new exams();    
-                       if(rs.getString("nomex").equals(nomex))
-                        q++;
 
-            } 
-                    return q;
+        pst = con.prepareStatement(requete4);
+
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            exams e = new exams();
+            if (rs.getString("nomex").equals(nomex)) {
+                q++;
+            }
+
+        }
+        return q;
     }
-     
- public void loadData() {
-     
-    String query = "select * From exams "; //ORDER BY P asc
- 
-    piechartdata = FXCollections.observableArrayList();
 
- con = DataBase.getInstance().getConnection();
- 
-    try {
-      
-      ResultSet rs = con.createStatement().executeQuery(query);
-      while (rs.next()) {
-           exams e = new exams();
-     //	int result = Integer.parseInt(e.getDuree());
-        piechartdata.add(new PieChart.Data(rs.getString("nomex"), rs.getInt("idexa")));
-        p.add(rs.getString("nomex"));
-        c.add(rs.getInt("idexa"));
-      }
-    } catch (Exception e) {
-  System.out.println(e.getMessage());
-    }}
+//    public void loadData() {
+//
+//        String query = "select * From exams "; //ORDER BY P asc
+//
+//        piechartdata = FXCollections.observableArrayList();
+//
+//        con = DataBase.getInstance().getConnection();
+//
+//        try {
+//
+//            ResultSet rs = con.createStatement().executeQuery(query);
+//            while (rs.next()) {
+//                exams e = new exams();
+//                //	int result = Integer.parseInt(e.getDuree());
+//                piechartdata.add(new PieChart.Data(rs.getString("nomex"), rs.getInt("idexa")));
+//                p.add(rs.getString("nomex"));
+//                c.add(rs.getInt("idexa"));
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
     @FXML
     private void addex(ActionEvent event) {
         Alert alertl = new Alert(Alert.AlertType.ERROR);
-           if(datetxt.getValue().isBefore(LocalDate.now())){
-               alertl.setTitle("Date Failed");
-               alertl.setContentText("The Date can't be in the Past !!");
-                alertl.showAndWait();
-               return;
-           }
-           System.out.println(datetxt.getValue().isBefore(LocalDate.now()));
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-           if(txtduree.getText().matches("(.*):(.*)")==false){
-                alert2.setTitle("Duree Failed");
-               alert2.setContentText("The Time must be like 00:00 !!");
-                alert2.showAndWait();
-               return;
-           }
-               System.out.println(txtduree.getText().matches("(.*):(.*)"));
-        String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
-        String numberAsString=txtduree +"Heurs";
-        
-       // String duree= txtduree.getText().concat(txtduree+"Heurs");
-        //System.out.println(date);
+        if (datetxt.getValue().isBefore(LocalDate.now())) {
+//            alertl.setTitle("Date Failed");
+//            alertl.setContentText("The Date can't be in the Past !!");
+//            alertl.showAndWait();
+            //     JFXButton btn = new JFXButton("Okay!");
+            AlertMaker.showErrorMessage("Date Failed!", "The Date can't be in the Past !!");
 
+            return;
+        }
+        System.out.println(datetxt.getValue().isBefore(LocalDate.now()));
+        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+        if (txtduree.getText().matches("(.*):(.*)") == false) {
+//                alert2.setTitle("Duree Failed");
+//               alert2.setContentText("The Time must be like 00:00 !!");
+//                alert2.showAndWait();
+            AlertMaker.showErrorMessage("Duree Failed!", "The Time must be like 00:00 !!");
+            return;
+        }
+        System.out.println(txtduree.getText().matches("(.*):(.*)"));
+        String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
+        String numberAsString = txtduree + "Heurs";
+
+        // String duree= txtduree.getText().concat(txtduree+"Heurs");
+        //System.out.println(date);
         exams e;
         e = new exams(txtnom.getText(), date, txtduree.getText());
         exc.ajoutex(e);
         Alert succAddExamAlert = new Alert(Alert.AlertType.INFORMATION);
-        succAddExamAlert.setTitle("Add Exam");
-        succAddExamAlert.setHeaderText("Results:");
-        succAddExamAlert.setContentText("Exam added successfully!");
-        succAddExamAlert.showAndWait();
+//        succAddExamAlert.setTitle("Add Exam");
+//        succAddExamAlert.setHeaderText("Results:");
+//        succAddExamAlert.setContentText("Exam added successfully!");
+//        succAddExamAlert.showAndWait();
+        AlertMaker.showSimpleAlert("Add Exam", "Exam added successfully!");
 
         data.clear();
         data.addAll(exc.afficherex());
@@ -196,18 +248,22 @@ public class ExamenController implements Initializable {
                 Logger.getLogger(ExamenController.class.getName()).log(Level.SEVERE, null, ex);
             }
             Alert ExamAlert = new Alert(Alert.AlertType.INFORMATION);
-            ExamAlert.setTitle("edit");
-            ExamAlert.setHeaderText(null);
-            ExamAlert.setContentText("Exam was succfuly edit");
-            ExamAlert.showAndWait();
+//            ExamAlert.setTitle("edit");
+//            ExamAlert.setHeaderText(null);
+//            ExamAlert.setContentText("Exam was succfuly edit");
+//            ExamAlert.showAndWait();
+        AlertMaker.showSimpleAlert("edit", "Exam was succfuly edit!");
+
 
         } else {
             //Alert Select exam :
             Alert selectExamAlert = new Alert(Alert.AlertType.WARNING);
-            selectExamAlert.setTitle("Select a Exam");
-            selectExamAlert.setHeaderText(null);
-            selectExamAlert.setContentText("You need to select Exam first!");
-            selectExamAlert.showAndWait();
+//            selectExamAlert.setTitle("Select a Exam");
+//            selectExamAlert.setHeaderText(null);
+//            selectExamAlert.setContentText("You need to select Exam first!");
+//            selectExamAlert.showAndWait();
+        AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
+
             //Alert Select Exam !
         }
     }
@@ -232,12 +288,14 @@ public class ExamenController implements Initializable {
                 data.addAll(exc.afficherex());
 
                 //Alert Delete Blog :
-                Alert succDeleteExamAlert = new Alert(Alert.AlertType.INFORMATION);
-                succDeleteExamAlert.setTitle("Delete Exam");
-                succDeleteExamAlert.setHeaderText("Results:");
-                succDeleteExamAlert.setContentText("Exam deleted successfully!");
+//                Alert succDeleteExamAlert = new Alert(Alert.AlertType.INFORMATION);
+//                succDeleteExamAlert.setTitle("Delete Exam");
+//                succDeleteExamAlert.setHeaderText("Results:");
+//                succDeleteExamAlert.setContentText("Exam deleted successfully!");
+//
+//                succDeleteExamAlert.showAndWait();
+        AlertMaker.showSimpleAlert("Delete Exam", "Exam deleted successfully!");
 
-                succDeleteExamAlert.showAndWait();
             } else if (optionDeleteExamAlert.get() == ButtonType.CANCEL) {
 
             }
@@ -245,11 +303,13 @@ public class ExamenController implements Initializable {
         } else {
 
             //Alert Select Exam :
-            Alert selectExamAlert = new Alert(Alert.AlertType.WARNING);
-            selectExamAlert.setTitle("Select a Exam");
-            selectExamAlert.setHeaderText(null);
-            selectExamAlert.setContentText("You need to select Exam first!");
-            selectExamAlert.showAndWait();
+//            Alert selectExamAlert = new Alert(Alert.AlertType.WARNING);
+//            selectExamAlert.setTitle("Select a Exam");
+//            selectExamAlert.setHeaderText(null);
+//            selectExamAlert.setContentText("You need to select Exam first!");
+//            selectExamAlert.showAndWait();
+        AlertMaker.showwarningMessage("Select a Exam", "You need to select Exam first!");
+
             //Alert Select Exam !
 
         }
@@ -257,12 +317,11 @@ public class ExamenController implements Initializable {
 
     @FXML
     private void displayex(ActionEvent event) {
-         data.clear();
+        data.clear();
         data.addAll(exc.RechercheReclamation(txtduree1.getText()));
-          this.idexa.setCellValueFactory(new PropertyValueFactory<>("idexa"));
-       this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
-       this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
-       this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
+        this.nomex.setCellValueFactory(new PropertyValueFactory<>("nomex"));
+        this.dateex.setCellValueFactory(new PropertyValueFactory<>("dateex"));
+        this.duree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         this.examtv.setItems(data);
     }
 //      @FXML
@@ -271,8 +330,9 @@ public class ExamenController implements Initializable {
 //        exams ExamSelected = examtv.getSelectionModel().getSelectedItem();
 //        ExamSelected.setNomex(edittedCell.getNewValue().toString());
 //  }
+
     @FXML
-     public void changeDateCellEvent(CellEditEvent edittedCell
+    public void changeDateCellEvent(CellEditEvent edittedCell
     ) {
         exams ExamSelected = examtv.getSelectionModel().getSelectedItem();
         ExamSelected.setDateex(edittedCell.getNewValue().toString());
@@ -295,5 +355,20 @@ public class ExamenController implements Initializable {
 //    @FXML
 //    private void changeTimeCellEvent(CellEditEvent edittedCell) {
 //    }
+
+    private Stage getStage() {
+        return (Stage) rootPane.getScene().getWindow();
+    }
+
+    @FXML
+    private void handleMenuFullScreen(ActionEvent event) {
+        Stage stage = getStage();
+        stage.setFullScreen(!stage.isFullScreen());
+    }
+
+    @FXML
+    private void handleAboutMenu(ActionEvent event) {
+                gestudentAssistantUtil.loadWindow(getClass().getResource("/edu/gestudent/about/about.fxml"), "About Us", null);
+    }
 
 }

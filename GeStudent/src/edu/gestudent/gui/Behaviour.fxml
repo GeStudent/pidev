@@ -35,7 +35,7 @@
                                           <Image url="@images/gestudent.png" />
                                        </image>
                                     </ImageView>
-                                    <Button layoutX="43.0" layoutY="14.0" mnemonicParsing="false" onAction="#Timer" prefHeight="35.0" prefWidth="80.0" text="Timer" />
+                                    <Button fx:id="Timer" layoutX="43.0" layoutY="14.0" mnemonicParsing="false" onAction="#Timer" prefHeight="35.0" prefWidth="80.0" text="Timer" />
                                  </children>
                               </Pane>
                               <Button layoutX="235.0" layoutY="6.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Random" />
@@ -59,8 +59,7 @@
                               <Label layoutX="26.0" layoutY="83.0" text="Award" />
                               <TableView fx:id="awardtv" layoutX="94.0" layoutY="126.0" prefHeight="200.0" prefWidth="289.0">
                                  <columns>
-                                    <TableColumn fx:id="idbeh" prefWidth="75.0" text="ID" />
-                                    <TableColumn fx:id="nombeh" prefWidth="107.0" text="Award Name" />
+                                    <TableColumn fx:id="nombeh" prefWidth="180.0" text="Award Name" />
                                     <TableColumn fx:id="award" prefWidth="107.0" text="Award" />
                                  </columns>
                               </TableView>
