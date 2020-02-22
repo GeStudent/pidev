@@ -166,7 +166,6 @@ public class ExamenController implements Initializable {
            }
                System.out.println(txtduree.getText().matches("(.*):(.*)"));
         String date = datetxt.getValue().format(DateTimeFormatter.ISO_DATE);
-     
         String numberAsString=txtduree +"Heurs";
         
        // String duree= txtduree.getText().concat(txtduree+"Heurs");

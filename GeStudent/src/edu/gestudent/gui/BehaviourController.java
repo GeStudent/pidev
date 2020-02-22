@@ -145,5 +145,13 @@ public class BehaviourController implements Initializable {
 
         }
     }
+
+    @FXML
+    private void Msg(ActionEvent event) {
+        chat_server cs= new chat_server();
+         cs.setVisible(true);
+
+        
+    }
     
 }
